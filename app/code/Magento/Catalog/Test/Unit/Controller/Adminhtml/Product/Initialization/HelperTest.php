@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
 namespace Magento\Catalog\Test\Unit\Controller\Adminhtml\Product\Initialization;
@@ -198,8 +198,6 @@ class HelperTest extends \PHPUnit_Framework_TestCase
     {
         $this->customOptionMock->expects($this->once())
             ->method('setProductSku');
-        $this->customOptionMock->expects($this->once())
-            ->method('setOptionId');
 
         $optionsData = [
             'option1' => ['is_delete' => true, 'name' => 'name1', 'price' => 'price1'],
@@ -306,6 +304,7 @@ class HelperTest extends \PHPUnit_Framework_TestCase
      * Data provider for testMergeProductOptions
      *
      * @return array
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public function mergeProductOptionsDataProvider()
     {
@@ -325,15 +324,34 @@ class HelperTest extends \PHPUnit_Framework_TestCase
                     [
                         'option_id' => '3',
                         'key1' => 'val1',
-                        'default_key1' => 'val2'
+                        'default_key1' => 'val2',
+                        'values' => [
+                            [
+                                'option_type_id' => '2',
+                                'key1' => 'val1',
+                                'default_key1' => 'val2'
+                            ]
+                        ]
                     ]
                 ],
-                [4 => ['key1' => '1']],
+                [
+                    4 => [
+                        'key1' => '1',
+                        'values' => [3 => ['key1' => 1]]
+                    ]
+                ],
                 [
                     [
                         'option_id' => '3',
                         'key1' => 'val1',
-                        'default_key1' => 'val2'
+                        'default_key1' => 'val2',
+                        'values' => [
+                            [
+                                'option_type_id' => '2',
+                                'key1' => 'val1',
+                                'default_key1' => 'val2'
+                            ]
+                        ]
                     ]
                 ]
             ],
@@ -342,19 +360,44 @@ class HelperTest extends \PHPUnit_Framework_TestCase
                     [
                         'option_id' => '5',
                         'key1' => 'val1',
-                        'key2' => 'val2',
+                        'title' => 'val2',
                         'default_key1' => 'val3',
-                        'default_key2' => 'val4'
+                        'default_title' => 'val4',
+                        'values' => [
+                            [
+                                'option_type_id' => '2',
+                                'key1' => 'val1',
+                                'key2' => 'val2',
+                                'default_key1' => 'val11',
+                                'default_key2' => 'val22'
+                            ]
+                        ]
                     ]
                 ],
-                [5 => ['key1' => '0', 'key2' => '1']],
+                [
+                    5 => [
+                        'key1' => '0',
+                        'title' => '1',
+                        'values' => [2 => ['key1' => 1]]
+                    ]
+                ],
                 [
                     [
                         'option_id' => '5',
                         'key1' => 'val1',
-                        'key2' => 'val4',
+                        'title' => 'val4',
                         'default_key1' => 'val3',
-                        'default_key2' => 'val4'
+                        'default_title' => 'val4',
+                        'is_delete_store_title' => 1,
+                        'values' => [
+                            [
+                                'option_type_id' => '2',
+                                'key1' => 'val11',
+                                'key2' => 'val2',
+                                'default_key1' => 'val11',
+                                'default_key2' => 'val22'
+                            ]
+                        ]
                     ]
                 ]
             ],
@@ -364,16 +407,41 @@ class HelperTest extends \PHPUnit_Framework_TestCase
                         'option_id' => '7',
                         'key1' => 'val1',
                         'key2' => 'val2',
-                        'default_key1' => 'val3'
+                        'default_key1' => 'val3',
+                        'values' => [
+                            [
+                                'option_type_id' => '2',
+                                'key1' => 'val1',
+                                'title' => 'val2',
+                                'default_key1' => 'val11',
+                                'default_title' => 'val22'
+                            ]
+                        ]
                     ]
                 ],
-                [7 => ['key1' => '1', 'key2' => '1']],
+                [
+                    7 => [
+                        'key1' => '1',
+                        'key2' => '1',
+                        'values' => [2 => ['key1' => 0, 'title' => 1]]
+                    ]
+                ],
                 [
                     [
                         'option_id' => '7',
                         'key1' => 'val3',
                         'key2' => 'val2',
-                        'default_key1' => 'val3'
+                        'default_key1' => 'val3',
+                        'values' => [
+                            [
+                                'option_type_id' => '2',
+                                'key1' => 'val1',
+                                'title' => 'val22',
+                                'default_key1' => 'val11',
+                                'default_title' => 'val22',
+                                'is_delete_store_title' => 1
+                            ]
+                        ]
                     ]
                 ],
             ],
