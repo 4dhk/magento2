@@ -24,6 +24,7 @@ chown -R ubuntu ./*
 
 cp -Rp $DIR/app/code/Magento/Catalog/* $TargetVendorMagentoDir/module-catalog
 cp -Rp $DIR/app/code/Magento/Customer/* $TargetVendorMagentoDir/module-customer
+cp -Rp $DIR/app/code/Magento/Newsletter/* $TargetVendorMagentoDir/module-newsletter
 
 chgrp -R www-data ./*
 
