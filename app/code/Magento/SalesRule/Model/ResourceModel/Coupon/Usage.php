@@ -75,8 +75,17 @@ class Usage extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
                 ['times_used' => $timesUsed + $timesInc],
                 ['coupon_id = ?' => $couponId, 'customer_id = ?' => $customerId]
             );
+        }
+        else if($timesUsed == 0 && $timesInc > 0){
+            $this->getConnection()->update(
+                $this->getMainTable(),
+                ['times_used' => $timesUsed + $timesInc],
+                ['coupon_id = ?' => $couponId, 'customer_id = ?' => $customerId]
+            );
+        }
+        else if ($timesUsed == 0 && $timesInc < 0){
         } 
-        else if ($timesUsed == 0 && $timesInc > 0){
+        else{
             $this->getConnection()->insert(
                 $this->getMainTable(),
                 ['coupon_id' => $couponId, 'customer_id' => $customerId, 'times_used' => 1]
