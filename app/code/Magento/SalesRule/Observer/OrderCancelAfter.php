@@ -44,22 +44,25 @@ class OrderCancelAfter implements ObserverInterface
         $order = $observer->getEvent()->getOrder();
         $couponCode = $order->getCouponCode();
 
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
-        $couponObject = $objectManager->create ('Magento\SalesRule\Model\Coupon');
-        $couponObject->loadByCode($couponCode);
-        $couponId = $couponObject->getCouponId();
-        $customerId = $order->getCustomerId();
-        if ($customerId) {
-            $this->_couponUsage->decreaseCustomerCouponTimesUsed($customerId, $couponId);
+        if($couponCode){
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+            $couponObject = $objectManager->create ('Magento\SalesRule\Model\Coupon');
+            $couponObject->loadByCode($couponCode);
+            $couponId = $couponObject->getCouponId();
+            $customerId = $order->getCustomerId();
+            if ($customerId) {
+                $this->_couponUsage->decreaseCustomerCouponTimesUsed($customerId, $couponId);
+            }
+
+            /** @var \Magento\SalesRule\Model\Rule\Customer $ruleCustomer */
+            $ruleCustomer = $this->_ruleCustomerFactory->create();
+            $ruleCustomer->loadByCustomerRule($customerId, $couponObject->getRuleId());
+            if($ruleCustomer){
+                if ($ruleCustomer->getId()) {
+                    $ruleCustomer->setTimesUsed(max($ruleCustomer->getTimesUsed() - 1, 0));
+                } 
+                $ruleCustomer->save();
+            }
         }
-
-        /** @var \Magento\SalesRule\Model\Rule\Customer $ruleCustomer */
-        $ruleCustomer = $this->_ruleCustomerFactory->create();
-        $ruleCustomer->loadByCustomerRule($customerId, $couponObject->getRuleId());
-
-        if ($ruleCustomer->getId()) {
-            $ruleCustomer->setTimesUsed(max($ruleCustomer->getTimesUsed() - 1, 0));
-        } 
-        $ruleCustomer->save();
     }
 }
