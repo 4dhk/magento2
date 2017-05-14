@@ -136,7 +136,7 @@ class ItemCarrier
                 }
                 $item->getProduct()->setDisableAddToCart($disableAddToCart);
                 // Add to cart
-                if ($item->addToCart($cart, $isOwner)) {
+                if ($item->addToCart($cart, false)) {
                     $addedProducts[] = $item->getProduct();
                 }
             } catch (LocalizedException $e) {
