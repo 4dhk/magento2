@@ -172,6 +172,7 @@ class CustomOptions extends AbstractModifier
             foreach ($values as $value) {
                 $value->setData(static::FIELD_IS_USE_DEFAULT, !$value->getData(static::FIELD_STORE_TITLE_NAME));
             }
+
             /** @var \Magento\Catalog\Model\Product\Option $value */
             foreach ($values as $value) {
                 $options[$index][static::GRID_TYPE_SELECT_NAME][] = $this->formatPriceByPath(
@@ -393,6 +394,7 @@ class CustomOptions extends AbstractModifier
                                 'data' => [
                                     'config' => [
                                         'componentType' => Fieldset::NAME,
+                                        'collapsible' => true,
                                         'label' => null,
                                         'sortOrder' => 10,
                                         'opened' => true,
@@ -484,7 +486,6 @@ class CustomOptions extends AbstractModifier
                                 'ns' => static::CUSTOM_OPTIONS_LISTING,
                                 'render_url' => $this->urlBuilder->getUrl('mui/index/render'),
                                 'realTimeLink' => true,
-                                'behaviourType' => 'edit',
                                 'externalFilterMode' => false,
                                 'currentProductId' => $this->locator->getProduct()->getId(),
                                 'dataLinks' => [
@@ -651,7 +652,10 @@ class CustomOptions extends AbstractModifier
                         ],
                     ],
                     'children' => [
-                        static::FIELD_TITLE_NAME => $this->getTitleFieldConfig(10),
+                        static::FIELD_TITLE_NAME => $this->getTitleFieldConfig(
+                            10,
+                            $this->locator->getProduct()->getStoreId() ? $options : []
+                        ),
                         static::FIELD_PRICE_NAME => $this->getPriceFieldConfig(20),
                         static::FIELD_PRICE_TYPE_NAME => $this->getPriceTypeFieldConfig(30, ['fit' => true]),
                         static::FIELD_SKU_NAME => $this->getSkuFieldConfig(40),

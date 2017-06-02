@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2016 Magento. All rights reserved.
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 namespace Magento\Catalog\Test\Unit\Controller\Adminhtml\Product\Initialization;
@@ -278,15 +278,18 @@ class HelperTest extends \PHPUnit_Framework_TestCase
             ->method('getOptionsReadOnly')
             ->willReturn(false);
 
+        $customOptionMockClone1 = clone $this->customOptionMock;
+        $customOptionMockClone2 = clone $this->customOptionMock;
+
         $this->customOptionFactoryMock->expects($this->any())
             ->method('create')
             ->willReturnMap([
                 [
                     ['data' => $optionsData['option2']],
-                    (clone $this->customOptionMock)->setData($optionsData['option2'])
+                    $customOptionMockClone1->setData($optionsData['option2'])
                 ], [
                     ['data' => $optionsData['option3']],
-                    (clone $this->customOptionMock)->setData($optionsData['option3'])
+                    $customOptionMockClone2->setData($optionsData['option3'])
                 ]
             ]);
 

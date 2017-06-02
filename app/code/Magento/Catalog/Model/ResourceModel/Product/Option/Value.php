@@ -232,7 +232,9 @@ class Value extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
             $optionTypeId = $this->getConnection()->fetchOne($select);
             $existInCurrentStore = $this->getOptionIdFromOptionTable($titleTable, (int)$object->getId(), (int)$storeId);
 
-            if ($storeId != \Magento\Store\Model\Store::DEFAULT_STORE_ID && $object->getData('is_delete_store_title')) {
+            if ($storeId != \Magento\Store\Model\Store::DEFAULT_STORE_ID &&
+                $object->getData('is_delete_store_title')
+            ) {
                 $object->unsetData('title');
             }
 
