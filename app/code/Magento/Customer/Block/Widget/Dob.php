@@ -130,6 +130,7 @@ class Dob extends AbstractWidget
         if ($filter) {
             $value = $filter->outputFilter($value);
         }
+        $value = str_replace(array(","), "", $value);
         return $value;
     }
 

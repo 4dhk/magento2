@@ -210,4 +210,38 @@ class Book extends \Magento\Framework\View\Element\Template
             return $customer->getDefaultShipping();
         }
     }
+
+
+    /**
+     * @return string
+     */
+    public function getPrimaryShippingAddressEditUrl()
+    {
+        if (!$this->getCustomer()) {
+            return '';
+        } else {
+            $addressId = $this->getDefaultShipping();
+            return $this->_urlBuilder->getUrl(
+                'customer/address/edit',
+                ['id' => $addressId]
+            );
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrimaryBillingAddressEditUrl()
+    {
+        if (!$this->getCustomer()) {
+            return '';
+        } else {
+            $addressId = $this->getDefaultBilling();
+            return $this->_urlBuilder->getUrl(
+                'customer/address/edit',
+                ['id' => $addressId]
+            );
+        }
+    }
+
 }

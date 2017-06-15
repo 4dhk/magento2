@@ -1,5 +1,5 @@
 {
-    "name": "magento/magento2ce",
+    "name": "fd/magento2ce",
     "description": "Magento 2 (Community Edition)",
     "type": "project",
     "version": "2.1.6",

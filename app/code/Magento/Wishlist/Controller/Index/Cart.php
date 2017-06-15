@@ -169,7 +169,7 @@ class Cart extends \Magento\Wishlist\Controller\AbstractIndex
             );
 
             $item->mergeBuyRequest($buyRequest);
-            $item->addToCart($this->cart, true);
+            $item->addToCart($this->cart, false);
             $this->cart->save()->getQuote()->collectTotals();
             $wishlist->save();
 

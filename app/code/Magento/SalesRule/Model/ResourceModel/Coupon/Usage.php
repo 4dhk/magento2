@@ -31,6 +31,31 @@ class Usage extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
     public function updateCustomerCouponTimesUsed($customerId, $couponId)
     {
+        $this->_updateCustomerCouponTimesUsed($customerId, $couponId, 1);
+    }
+
+    /**
+     * Decrement times_used counter
+     *
+     * @param int $customerId
+     * @param mixed $couponId
+     * @return void
+     */
+    public function decreaseCustomerCouponTimesUsed($customerId, $couponId)
+    {
+        $this->_updateCustomerCouponTimesUsed($customerId, $couponId, -1);
+    }
+
+    /**
+     * Increment times_used counter
+     *
+     * @param int $customerId
+     * @param mixed $couponId
+     * @param int $timesInc   can be nagative to do decrement
+     * @return void
+     */
+    private function _updateCustomerCouponTimesUsed($customerId, $couponId, $timesInc)
+    {
         $connection = $this->getConnection();
         $select = $connection->select();
         $select->from(
@@ -47,16 +72,28 @@ class Usage extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         if ($timesUsed > 0) {
             $this->getConnection()->update(
                 $this->getMainTable(),
-                ['times_used' => $timesUsed + 1],
+                ['times_used' => $timesUsed + $timesInc],
                 ['coupon_id = ?' => $couponId, 'customer_id = ?' => $customerId]
             );
-        } else {
+        }
+        else if($timesUsed == 0 && $timesInc > 0){
+            $this->getConnection()->update(
+                $this->getMainTable(),
+                ['times_used' => $timesUsed + $timesInc],
+                ['coupon_id = ?' => $couponId, 'customer_id = ?' => $customerId]
+            );
+        }
+        else if ($timesUsed == 0 && $timesInc < 0){
+        } 
+        else{
             $this->getConnection()->insert(
                 $this->getMainTable(),
                 ['coupon_id' => $couponId, 'customer_id' => $customerId, 'times_used' => 1]
             );
         }
     }
+
+
 
     /**
      * Load an object by customer_id & coupon_id
