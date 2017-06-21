@@ -38,6 +38,11 @@ class Index extends \Magento\Framework\App\Action\Action
     public function execute()
     {
         $this->pageConfig->addBodyClass('swagger-section');
-        return $this->pageFactory->create();
+        $resultPage = $this->pageFactory->create();
+
+        $storeCodeName = 'store_code';
+        $storeCode = $this->getRequest()->getParam($storeCodeName);
+        $this->_view->getLayout()->getBlock('swaggerUiContent')->assign($storeCodeName, $storeCode);
+        return $resultPage;
     }
 }
