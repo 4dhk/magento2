@@ -27,6 +27,7 @@ cp -Rp $DIR/app/code/Magento/Customer/* $TargetVendorMagentoDir/module-customer
 cp -Rp $DIR/app/code/Magento/Newsletter/* $TargetVendorMagentoDir/module-newsletter
 cp -Rp $DIR/app/code/Magento/SalesRule/* $TargetVendorMagentoDir/module-sales-rule
 cp -Rp $DIR/app/code/Magento/Wishlist/* $TargetVendorMagentoDir/module-wishlist
+cp -Rp $DIR/app/code/Magento/Swagger/* $TargetVendorMagentoDir/module-swagger
 
 chgrp -R www-data ./*
 
