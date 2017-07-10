@@ -28,6 +28,9 @@ cp -Rp $DIR/app/code/Magento/Newsletter/* $TargetVendorMagentoDir/module-newslet
 cp -Rp $DIR/app/code/Magento/SalesRule/* $TargetVendorMagentoDir/module-sales-rule
 cp -Rp $DIR/app/code/Magento/Wishlist/* $TargetVendorMagentoDir/module-wishlist
 cp -Rp $DIR/app/code/Magento/Swagger/* $TargetVendorMagentoDir/module-swagger
+cp -Rp $DIR/app/code/Magento/Theme/* $TargetVendorMagentoDir/module-theme
+cp -Rp $DIR/app/code/Magento/Config/* $TargetVendorMagentoDir/module-config
+cp -Rp $DIR/app/code/Magento/Email/* $TargetVendorMagentoDir/module-email
 
 chgrp -R www-data ./*
 
