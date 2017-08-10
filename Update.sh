@@ -32,6 +32,7 @@ cp -Rp $DIR/app/code/Magento/Theme/* $TargetVendorMagentoDir/module-theme
 cp -Rp $DIR/app/code/Magento/Config/* $TargetVendorMagentoDir/module-config
 cp -Rp $DIR/app/code/Magento/Email/* $TargetVendorMagentoDir/module-email
 cp -Rp $DIR/app/code/Magento/Translation/* $TargetVendorMagentoDir/module-translation
+cp -Rp $DIR/app/code/Magento/Ui/* $TargetVendorMagentoDir/module-ui
 
 chgrp -R www-data ./*
 
