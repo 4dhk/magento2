@@ -33,6 +33,7 @@ cp -Rp $DIR/app/code/Magento/Config/* $TargetVendorMagentoDir/module-config
 cp -Rp $DIR/app/code/Magento/Email/* $TargetVendorMagentoDir/module-email
 cp -Rp $DIR/app/code/Magento/Translation/* $TargetVendorMagentoDir/module-translation
 cp -Rp $DIR/app/code/Magento/Ui/* $TargetVendorMagentoDir/module-ui
+cp -Rp $DIR/app/code/Magento/ConfigurableProduct/* $TargetVendorMagentoDir/module-configurable-product
 
 chgrp -R www-data ./*
 
