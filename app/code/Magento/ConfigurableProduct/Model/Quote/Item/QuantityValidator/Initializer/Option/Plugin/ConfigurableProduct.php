@@ -28,7 +28,9 @@ class ConfigurableProduct
     ) {
         $stockItem = $proceed($option, $quoteItem);
         if ($quoteItem->getProductType() == \Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE) {
-            $stockItem->setProductName($quoteItem->getName());
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+            $product = $objectManager->create('Magento\Catalog\Model\Product')->load($stockItem->getProductId());
+            $stockItem->setProductName($product->getName());
         }
         return $stockItem;
     }
