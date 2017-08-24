@@ -68,7 +68,7 @@ define([
                 dnd: '${ $.dndConfig.name }'
             },
             pages: 1,
-            pageSize: 20,
+            pageSize: 100,
             relatedData: [],
             currentPage: 1,
             startIndex: 0
