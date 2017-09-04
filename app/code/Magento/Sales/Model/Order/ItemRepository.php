@@ -131,7 +131,8 @@ class ItemRepository implements OrderItemRepositoryInterface
 
         /** @var OrderItemInterface $orderItem */
         foreach ($searchResult->getItems() as $orderItem) {
-            $this->addProductOption($orderItem);
+            $optionData = $orderItem->getProductOptions()['options'];
+            $orderItem->setData('product_options', $optionData);
         }
 
         return $searchResult;
