@@ -1796,21 +1796,6 @@ interface OrderItemInterface extends \Magento\Framework\Api\ExtensibleDataInterf
     /**
      * Returns product option
      *
-     * @return Array|null
-     */
-    public function getProductOptions();
-
-    /**
-     * Sets product option
-     *
-     * @param Array $productOption
-     * @return $this
-     */
-    public function setProductOptions(Array $productOption);
-
-    /**
-     * Returns product option
-     *
      * @return \Magento\Catalog\Api\Data\ProductOptionInterface|null
      */
     public function getProductOption();
@@ -1822,7 +1807,6 @@ interface OrderItemInterface extends \Magento\Framework\Api\ExtensibleDataInterf
      * @return $this
      */
     public function setProductOption(\Magento\Catalog\Api\Data\ProductOptionInterface $productOption);
-
 
     /**
      * Retrieve existing extension attributes object or create a new one.

@@ -121,14 +121,6 @@ class OrderRepository implements \Magento\Sales\Api\OrderRepositoryInterface
         $searchResult->setPageSize($searchCriteria->getPageSize());
         foreach ($searchResult->getItems() as $order) {
             $this->setShippingAssignments($order);
-
-            /** @var OrderItemInterface $orderItem */
-            foreach ($order->getItems() as $orderItem) {
-                if(array_key_exists('options' , $orderItem->getProductOptions())){
-                    $optionData = $orderItem->getProductOptions()['options'];
-                    $orderItem->setData('product_options', $optionData);
-                }
-            }
         }
         return $searchResult;
     }
@@ -194,7 +186,7 @@ class OrderRepository implements \Magento\Sales\Api\OrderRepositoryInterface
 
     /**
      * Get the new OrderExtensionFactory for application code
-     *
+     * 
      * @return OrderExtensionFactory
      * @deprecated
      */
