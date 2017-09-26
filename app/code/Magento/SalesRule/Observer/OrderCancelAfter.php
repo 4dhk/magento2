@@ -60,8 +60,8 @@ class OrderCancelAfter implements ObserverInterface
             if($ruleCustomer){
                 if ($ruleCustomer->getId()) {
                     $ruleCustomer->setTimesUsed(max($ruleCustomer->getTimesUsed() - 1, 0));
-                } 
-                $ruleCustomer->save();
+                    $ruleCustomer->save();
+                }
             }
         }
     }
