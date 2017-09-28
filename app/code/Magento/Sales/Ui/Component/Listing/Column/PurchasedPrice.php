@@ -55,7 +55,7 @@ class PurchasedPrice extends Column
                     $this->priceFormatter->format(
                         $item[$this->getData('name')],
                         false,
-                        null,
+                        2,
                         null,
                         $currencyCode
                     );
