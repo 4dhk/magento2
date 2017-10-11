@@ -270,7 +270,8 @@ abstract class AbstractAction
                 [
                     \Magento\Catalog\Model\Product\Visibility::VISIBILITY_IN_CATALOG,
                     \Magento\Catalog\Model\Product\Visibility::VISIBILITY_IN_SEARCH,
-                    \Magento\Catalog\Model\Product\Visibility::VISIBILITY_BOTH
+                    \Magento\Catalog\Model\Product\Visibility::VISIBILITY_BOTH,
+                    \Magento\Catalog\Model\Product\Visibility::VISIBILITY_NOT_VISIBLE
                 ]
             )->columns(
                 [
@@ -447,7 +448,8 @@ abstract class AbstractAction
             [
                 \Magento\Catalog\Model\Product\Visibility::VISIBILITY_IN_CATALOG,
                 \Magento\Catalog\Model\Product\Visibility::VISIBILITY_IN_SEARCH,
-                \Magento\Catalog\Model\Product\Visibility::VISIBILITY_BOTH
+                \Magento\Catalog\Model\Product\Visibility::VISIBILITY_BOTH,
+                \Magento\Catalog\Model\Product\Visibility::VISIBILITY_NOT_VISIBLE
             ]
         )->where(
             $this->connection->getIfNullSql('ccas.value', 'ccad.value') . ' = ?',

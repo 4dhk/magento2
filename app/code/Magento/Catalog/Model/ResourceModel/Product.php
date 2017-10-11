@@ -454,10 +454,11 @@ class Product extends AbstractResource
                 )->where(
                     'product_id = ? AND is_parent = 1',
                     $entityId
-                )->where(
+                )
+                /*->where(
                     'visibility != ?',
                     \Magento\Catalog\Model\Product\Visibility::VISIBILITY_NOT_VISIBLE
-                )
+                )*/
             );
         }
         return $this->availableCategoryIdsCache[$entityId];
