@@ -63,6 +63,7 @@ class ConfigurablePriceResolver implements PriceResolverInterface
             $productPrice = $this->priceResolver->resolvePrice($subProduct);
             $price = $price ? min($price, $productPrice) : $productPrice;
         }
+        $price = $price ?: $product->getData('price');
 
         return $price === null ? null : (float)$price;
     }
