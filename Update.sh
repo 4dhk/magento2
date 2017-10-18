@@ -1,5 +1,4 @@
-#sh
-
+#!/usr/bin/env bash
 
 
 ### This script is assume that the repo is under [project folder]/submodules/smartwaveporto.
@@ -20,7 +19,6 @@ TargetVendorMagentoDir=$DIR/../../vendor/magento
 echo "Workding Directory:"$DIR
 echo "Vender Magento Directory:"$TargetVendorMagentoDir
 
-chown -R ubuntu ./*
 
 cp -Rp $DIR/app/code/Magento/Catalog/* $TargetVendorMagentoDir/module-catalog
 cp -Rp $DIR/app/code/Magento/Sales/* $TargetVendorMagentoDir/module-sales
@@ -37,7 +35,5 @@ cp -Rp $DIR/app/code/Magento/Translation/* $TargetVendorMagentoDir/module-transl
 cp -Rp $DIR/app/code/Magento/Ui/* $TargetVendorMagentoDir/module-ui
 cp -Rp $DIR/app/code/Magento/ConfigurableProduct/* $TargetVendorMagentoDir/module-configurable-product
 cp -Rp $DIR/app/code/Magento/Cms/* $TargetVendorMagentoDir/module-cms
-
-chgrp -R www-data ./*
 
 
