@@ -35,5 +35,6 @@ cp -Rp $DIR/app/code/Magento/Translation/* $TargetVendorMagentoDir/module-transl
 cp -Rp $DIR/app/code/Magento/Ui/* $TargetVendorMagentoDir/module-ui
 cp -Rp $DIR/app/code/Magento/ConfigurableProduct/* $TargetVendorMagentoDir/module-configurable-product
 cp -Rp $DIR/app/code/Magento/Cms/* $TargetVendorMagentoDir/module-cms
+cp -Rp $DIR/app/code/Magento/Eav/* $TargetVendorMagentoDir/module-eav
 
 

@@ -88,6 +88,7 @@ class Attribute extends \Magento\Eav\Model\Entity\Attribute
      * @param \Magento\Framework\Locale\ResolverInterface $localeResolver
      * @param DateTimeFormatterInterface $dateTimeFormatter
      * @param LockValidatorInterface $lockValidator
+     * @param \Magento\Eav\Model\Entity\Attribute\FrontendLabelFactory $frontendLabelFactory
      * @param \Magento\Framework\Model\ResourceModel\AbstractResource $resource
      * @param \Magento\Framework\Data\Collection\AbstractDb $resourceCollection
      * @param array $data
@@ -111,6 +112,7 @@ class Attribute extends \Magento\Eav\Model\Entity\Attribute
         \Magento\Framework\Locale\ResolverInterface $localeResolver,
         DateTimeFormatterInterface $dateTimeFormatter,
         LockValidatorInterface $lockValidator,
+        \Magento\Eav\Model\Entity\Attribute\FrontendLabelFactory $frontendLabelFactory,
         \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
         \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
         array $data = []
@@ -133,6 +135,7 @@ class Attribute extends \Magento\Eav\Model\Entity\Attribute
             $reservedAttributeList,
             $localeResolver,
             $dateTimeFormatter,
+            $frontendLabelFactory,
             $resource,
             $resourceCollection,
             $data

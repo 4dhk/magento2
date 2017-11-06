@@ -82,6 +82,11 @@ class Attribute extends \Magento\Eav\Model\Entity\Attribute\AbstractAttribute im
     private $numberFormatterFactory;
 
     /**
+     * @var \Magento\Eav\Model\Entity\Attribute\FrontendLabelFactory
+     */
+    private $frontendLabelFactory;
+
+    /**
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param \Magento\Framework\Api\ExtensionAttributesFactory $extensionFactory
@@ -98,6 +103,7 @@ class Attribute extends \Magento\Eav\Model\Entity\Attribute\AbstractAttribute im
      * @param \Magento\Catalog\Model\Product\ReservedAttributeList $reservedAttributeList
      * @param \Magento\Framework\Locale\ResolverInterface $localeResolver
      * @param DateTimeFormatterInterface $dateTimeFormatter
+     * @param \Magento\Eav\Model\Entity\Attribute\FrontendLabelFactory $frontendLabelFactory
      * @param \Magento\Framework\Model\ResourceModel\AbstractResource $resource
      * @param \Magento\Framework\Data\Collection\AbstractDb $resourceCollection
      * @param array $data
@@ -121,6 +127,7 @@ class Attribute extends \Magento\Eav\Model\Entity\Attribute\AbstractAttribute im
         \Magento\Catalog\Model\Product\ReservedAttributeList $reservedAttributeList,
         \Magento\Framework\Locale\ResolverInterface $localeResolver,
         DateTimeFormatterInterface $dateTimeFormatter,
+        \Magento\Eav\Model\Entity\Attribute\FrontendLabelFactory $frontendLabelFactory,
         \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
         \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
         array $data = []
@@ -146,6 +153,7 @@ class Attribute extends \Magento\Eav\Model\Entity\Attribute\AbstractAttribute im
         $this->_localeResolver = $localeResolver;
         $this->reservedAttributeList = $reservedAttributeList;
         $this->dateTimeFormatter = $dateTimeFormatter;
+        $this->frontendLabelFactory = $frontendLabelFactory;
     }
 
     /**
@@ -453,6 +461,30 @@ class Attribute extends \Magento\Eav\Model\Entity\Attribute\AbstractAttribute im
     {
         return $this->getResource()->getAttributeCodesByFrontendType($type);
     }
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFrontendLabels()
+    {
+        if($this->getData(self::FRONTEND_LABELS) == null){
+            $attributeId = $this->getAttributeId();
+            $storeLabels = $this->_getResource()->getStoreLabelsByAttributeId($attributeId);
+
+            $resultFrontedLabels = [];
+            foreach ($storeLabels as $i => $label) {
+                $frontendLabel = $this->frontendLabelFactory->create();
+                $frontendLabel->setStoreId($i);
+                $frontendLabel->setLabel($label);
+                array_push($resultFrontedLabels, $frontendLabel);
+            }
+            $this->setData(self::FRONTEND_LABELS, $resultFrontedLabels);
+
+        }
+        return $this->getData(self::FRONTEND_LABELS);
+    }
+
 
     /**
      * Return array of labels of stores
