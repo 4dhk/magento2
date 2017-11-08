@@ -194,7 +194,7 @@ class ShippingMethodManagement implements
             $address->getCountryId(),
             $address->getPostcode(),
             $address->getRegionId(),
-            $address->getRegion()
+            $this->resolveRegion($address)
         );
     }
 
@@ -232,7 +232,7 @@ class ShippingMethodManagement implements
             $address->getCountryId(),
             $address->getPostcode(),
             $address->getRegionId(),
-            $address->getRegion()
+            $this->resolveRegion($address)
         );
     }
 
@@ -278,5 +278,19 @@ class ShippingMethodManagement implements
             }
         }
         return $output;
+    }
+
+
+    /*
+     * Work around for the Magento issue where checkout fails, if there is no region.
+     * The issue has been reported severally.
+     * Please find an example issue here: https://github.com/magento/magento2/issues/7387
+     * */
+    public function resolveRegion($address){
+        $region = $address->getRegion();
+        if(is_object($region)){
+            return $region->getRegion();
+        }
+        return $region;
     }
 }
