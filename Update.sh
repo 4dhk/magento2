@@ -37,7 +37,6 @@ cp -Rp $DIR/app/code/Magento/ConfigurableProduct/* $TargetVendorMagentoDir/modul
 cp -Rp $DIR/app/code/Magento/Cms/* $TargetVendorMagentoDir/module-cms
 cp -Rp $DIR/app/code/Magento/Eav/* $TargetVendorMagentoDir/module-eav
 cp -Rp $DIR/app/code/Magento/CatalogImportExport/* $TargetVendorMagentoDir/module-catalog-import-export
-cp -Rp $DIR/app/code/Magento/ImportExport/* $TargetVendorMagentoDir/module-
-import-export
+cp -Rp $DIR/app/code/Magento/ImportExport/* $TargetVendorMagentoDir/module-import-export
 
 
