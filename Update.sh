@@ -1,5 +1,4 @@
-#sh
-
+#!/usr/bin/env bash
 
 
 ### This script is assume that the repo is under [project folder]/submodules/smartwaveporto.
@@ -20,9 +19,10 @@ TargetVendorMagentoDir=$DIR/../../vendor/magento
 echo "Workding Directory:"$DIR
 echo "Vender Magento Directory:"$TargetVendorMagentoDir
 
-chown -R ubuntu ./*
 
 cp -Rp $DIR/app/code/Magento/Catalog/* $TargetVendorMagentoDir/module-catalog
+cp -Rp $DIR/app/code/Magento/Sales/* $TargetVendorMagentoDir/module-sales
+cp -Rp $DIR/app/code/Magento/Checkout/* $TargetVendorMagentoDir/module-checkout
 cp -Rp $DIR/app/code/Magento/Customer/* $TargetVendorMagentoDir/module-customer
 cp -Rp $DIR/app/code/Magento/Newsletter/* $TargetVendorMagentoDir/module-newsletter
 cp -Rp $DIR/app/code/Magento/SalesRule/* $TargetVendorMagentoDir/module-sales-rule
@@ -34,7 +34,10 @@ cp -Rp $DIR/app/code/Magento/Email/* $TargetVendorMagentoDir/module-email
 cp -Rp $DIR/app/code/Magento/Translation/* $TargetVendorMagentoDir/module-translation
 cp -Rp $DIR/app/code/Magento/Ui/* $TargetVendorMagentoDir/module-ui
 cp -Rp $DIR/app/code/Magento/ConfigurableProduct/* $TargetVendorMagentoDir/module-configurable-product
-
-chgrp -R www-data ./*
+cp -Rp $DIR/app/code/Magento/Cms/* $TargetVendorMagentoDir/module-cms
+cp -Rp $DIR/app/code/Magento/Eav/* $TargetVendorMagentoDir/module-eav
+cp -Rp $DIR/app/code/Magento/CatalogImportExport/* $TargetVendorMagentoDir/module-catalog-import-export
+cp -Rp $DIR/app/code/Magento/ImportExport/* $TargetVendorMagentoDir/module-
+import-export
 
 

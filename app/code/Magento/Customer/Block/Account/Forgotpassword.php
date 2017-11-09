@@ -33,6 +33,15 @@ class Forgotpassword extends \Magento\Framework\View\Element\Template
     }
 
     /**
+     * @return $this
+     */
+    protected function _prepareLayout()
+    {
+        $this->pageConfig->getTitle()->set(__('Forgot Your Password'));
+        return parent::_prepareLayout();
+    }
+
+    /**
      * Get login URL
      *
      * @return string

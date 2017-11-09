@@ -19,7 +19,7 @@ class Crosssell extends \Magento\Catalog\Block\Product\AbstractProduct
      *
      * @var int
      */
-    protected $_maxItemCount = 4;
+    protected $_maxItemCount = 30;
 
     /**
      * @var \Magento\Checkout\Model\Session

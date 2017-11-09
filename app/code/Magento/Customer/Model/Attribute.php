@@ -59,6 +59,7 @@ class Attribute extends \Magento\Eav\Model\Attribute
      * @param \Magento\Framework\Locale\ResolverInterface $localeResolver
      * @param DateTimeFormatterInterface $dateTimeFormatter
      * @param \Magento\Framework\Indexer\IndexerRegistry $indexerRegistry
+     * @param \Magento\Eav\Model\Entity\Attribute\FrontendLabelFactory $frontendLabelFactory
      * @param \Magento\Framework\Model\ResourceModel\AbstractResource|null $resource
      * @param \Magento\Framework\Data\Collection\AbstractDb|null $resourceCollection
      * @param array $data
@@ -83,6 +84,7 @@ class Attribute extends \Magento\Eav\Model\Attribute
         \Magento\Framework\Locale\ResolverInterface $localeResolver,
         DateTimeFormatterInterface $dateTimeFormatter,
         \Magento\Framework\Indexer\IndexerRegistry $indexerRegistry,
+        \Magento\Eav\Model\Entity\Attribute\FrontendLabelFactory $frontendLabelFactory,
         \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
         \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
         array $data = []
@@ -105,6 +107,7 @@ class Attribute extends \Magento\Eav\Model\Attribute
             $reservedAttributeList,
             $localeResolver,
             $dateTimeFormatter,
+            $frontendLabelFactory,
             $resource,
             $resourceCollection,
             $data

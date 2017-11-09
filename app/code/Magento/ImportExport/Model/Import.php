@@ -460,6 +460,7 @@ class Import extends \Magento\ImportExport\Model\AbstractModel
                 null,
                 $e->getMessage()
             );
+            $this->_logger->critical($e);
         }
 
         return !$errorAggregator->hasToBeTerminated();
@@ -585,6 +586,7 @@ class Import extends \Magento\ImportExport\Model\AbstractModel
                 null,
                 $e->getMessage()
             );
+            $this->_logger->critical($e);
         }
 
         $messages = $this->getOperationResultMessages($errorAggregator);

@@ -141,8 +141,13 @@ define([
                 return;
             }
 
+            var errorMessage = "";
+            if(xhr != undefined){
+                errorMessage = xhr.responseText;
+            }
+
             alert({
-                content: $t('Something went wrong.')
+                content: $t('Something went wrong. <br>' + errorMessage)
             });
         },
 
