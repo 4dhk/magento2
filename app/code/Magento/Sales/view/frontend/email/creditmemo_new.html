@@ -11,7 +11,7 @@
 "var creditmemo.increment_id":"Credit Memo Id",
 "layout handle=\"sales_email_order_creditmemo_items\" creditmemo=$creditmemo order=$order":"Credit Memo Items Grid",
 "var this.getUrl($store, 'customer/account/')":"Customer Account URL",
-"var order.getCustomerName()":"Customer Name",
+"var order.getBillingAddress().getName()()":"Customer Name",
 "var order.increment_id":"Order Id",
 "var payment_html|raw":"Payment Details",
 "var formattedShippingAddress|raw":"Shipping Address",
@@ -23,7 +23,7 @@
 <table>
     <tr class="email-intro">
         <td>
-            <p class="greeting">{{trans "%name," name=$order.getCustomerName()}}</p>
+            <p class="greeting">{{trans "%name," name=$order.getBillingAddress().getName()()}}</p>
             <p>
                 {{trans "Thank you for your order from %store_name." store_name=$store.getFrontendName()}}
                 {{trans 'You can check the status of your order by <a href="%account_url">logging into your account</a>.' account_url=$this.getUrl($store,'customer/account/',[_nosid:1]) |raw}}

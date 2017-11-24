@@ -7,7 +7,7 @@
 <!--@subject {{trans "Update to your %store_name invoice" store_name=$store.getFrontendName()}} @-->
 <!--@vars {
 "var this.getUrl($store, 'customer/account/')":"Customer Account URL",
-"var order.getCustomerName()":"Customer Name",
+"var order.getBillingAddress().getName()()":"Customer Name",
 "var comment":"Invoice Comment",
 "var invoice.increment_id":"Invoice Id",
 "var order.increment_id":"Order Id",
@@ -18,7 +18,7 @@
 <table>
     <tr class="email-intro">
         <td>
-            <p class="greeting">{{trans "%name," name=$order.getCustomerName()}}</p>
+            <p class="greeting">{{trans "%name," name=$order.getBillingAddress().getName()()}}</p>
             <p>
                 {{trans
                     "Your order #%increment_id has been updated with a status of <strong>%order_status</strong>."

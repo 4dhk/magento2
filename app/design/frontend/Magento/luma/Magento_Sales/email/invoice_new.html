@@ -8,7 +8,7 @@
 <!--@vars {
 "var formattedBillingAddress|raw":"Billing Address",
 "var this.getUrl($store, 'customer/account/')":"Customer Account URL",
-"var order.getCustomerName()":"Customer Name",
+"var order.getBillingAddress().getName()()":"Customer Name",
 "var comment":"Invoice Comment",
 "var invoice.increment_id":"Invoice Id",
 "layout area=\"frontend\" handle=\"sales_email_order_invoice_items\" invoice=$invoice order=$order":"Invoice Items Grid",
@@ -23,7 +23,7 @@
 <table>
     <tr class="email-intro">
         <td>
-            <p class="greeting">{{trans "%name," name=$order.getCustomerName()}}</p>
+            <p class="greeting">{{trans "%name," name=$order.getBillingAddress().getName()()}}</p>
             <p>
                 {{trans "Thank you for your order from %store_name." store_name=$store.getFrontendName()}}
                 {{trans 'You can check the status of your order by <a href="%account_url">logging into your account</a>.' account_url=$this.getUrl($store,'customer/account/',[_nosid:1]) |raw}}
