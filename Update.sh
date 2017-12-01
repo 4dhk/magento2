@@ -39,10 +39,9 @@ cp -Rp $DIR/app/code/Magento/Eav/* $TargetVendorMagentoDir/module-eav
 cp -Rp $DIR/app/code/Magento/CatalogImportExport/* $TargetVendorMagentoDir/module-catalog-import-export
 cp -Rp $DIR/app/code/Magento/ImportExport/* $TargetVendorMagentoDir/module-import-export
 cp -Rp $DIR/app/code/Magento/Quote/* $TargetVendorMagentoDir/module-quote
+cp -Rp $DIR/app/code/Magento/CatalogImportExport/* $TargetVendorMagentoDir/module-catalog-import-export
 
 cp -Rp $DIR/app/design/adminhtml/Magento/backend/Magento_Catalog/* $TargetVendorMagentoDir/theme-adminhtml-backend/Magento_Catalog
 
 
 chgrp -R www-data ./*
-
-
