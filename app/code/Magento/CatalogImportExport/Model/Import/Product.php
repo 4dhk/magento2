@@ -2374,6 +2374,13 @@ class Product extends \Magento\ImportExport\Model\Import\Entity\AbstractEntity
                     $this->rowNumbers[$storeId][$urlPath] = $rowNum;
                 } else {
                     $this->addRowError(ValidatorInterface::ERROR_DUPLICATE_URL_KEY, $rowNum);
+
+                    $this->_logger->critical("Row No : ".$rowNum);
+                    $this->_logger->critical("import to Store : ".json_encode($storeId));
+                    $this->_logger->critical("importing Product(Sku) : ".($rowData[self::COL_SKU]));
+                    $this->_logger->critical("duplicated Url : ".json_encode($urlPath));
+                    $this->_logger->critical('Url Now Belongs to Product(sku) : '.json_encode($this->urlKeys[$storeId][$urlPath]));
+                    $this->_logger->critical('================================================');
                 }
             }
         }
