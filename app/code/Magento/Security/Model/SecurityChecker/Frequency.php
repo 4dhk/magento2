@@ -76,7 +76,7 @@ class Frequency implements SecurityCheckerInterface
                 )) {
                 throw new SecurityViolationException(
                     __(
-                        'Too many password reset requests. Please wait and try again or contact %1.',
+                        'Too many password reset requests. Please wait and try again',
                         $this->securityConfig->getCustomerServiceEmail()
                     )
                 );
