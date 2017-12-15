@@ -2300,6 +2300,10 @@ class Collection extends \Magento\Catalog\Model\ResourceModel\Collection\Abstrac
      */
     public function setOrder($attribute, $dir = Select::SQL_DESC)
     {
+        $this->addAttributeToSort($attribute, $dir);
+        if ($attribute == 'position' || $attribute == '') {
+            $this->addAttributeToSort('entity_id', Select::SQL_DESC);
+        }
         if ($attribute == 'price') {
             $this->addAttributeToSort($attribute, $dir);
         } else {

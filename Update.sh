@@ -15,9 +15,11 @@ case "$(uname)" in
 	;;
 esac
 TargetVendorMagentoDir=$DIR/../../vendor/magento
+TargetRootMagentoDir=$DIR/../..
 
 echo "Workding Directory:"$DIR
 echo "Vender Magento Directory:"$TargetVendorMagentoDir
+
 
 
 cp -Rp $DIR/app/code/Magento/Catalog/* $TargetVendorMagentoDir/module-catalog
@@ -39,5 +41,13 @@ cp -Rp $DIR/app/code/Magento/Eav/* $TargetVendorMagentoDir/module-eav
 cp -Rp $DIR/app/code/Magento/CatalogImportExport/* $TargetVendorMagentoDir/module-catalog-import-export
 cp -Rp $DIR/app/code/Magento/ImportExport/* $TargetVendorMagentoDir/module-import-export
 cp -Rp $DIR/app/code/Magento/Quote/* $TargetVendorMagentoDir/module-quote
+cp -Rp $DIR/app/code/Magento/CatalogImportExport/* $TargetVendorMagentoDir/module-catalog-import-export
+cp -Rp $DIR/app/code/Magento/Security/* $TargetVendorMagentoDir/module-security
 
+cp -Rp $DIR/app/design/adminhtml/Magento/backend/Magento_Catalog/* $TargetVendorMagentoDir/theme-adminhtml-backend/Magento_Catalog
 
+#Add translation
+rm $TargetRootMagentoDir/lib/web/mage/validation.js
+cp -Rp $DIR/lib/web/mage/validation.js $TargetRootMagentoDir/lib/web/mage/validation.js
+
+chgrp -R www-data ./*

@@ -1249,7 +1249,7 @@ class Product extends \Magento\ImportExport\Model\Import\Entity\AbstractEntity
                 $linkId = $this->_connection->fetchOne(
                     $this->_connection->select()
                         ->from($this->getResource()->getTable('catalog_product_entity'))
-                        ->where('sku = ?', $sku)
+                        ->where('sku = ?', (string)$sku)
                         ->columns($this->getProductEntityLinkField())
                 );
 
@@ -2327,7 +2327,7 @@ class Product extends \Magento\ImportExport\Model\Import\Entity\AbstractEntity
             foreach ($storeCodes as $storeCode) {
                 $storeId = $this->storeResolver->getStoreCodeToId($storeCode);
                 $productUrlSuffix = $this->getProductUrlSuffix($storeId);
-                $urlPath = $urlKey . $productUrlSuffix;
+                $urlPath = strtolower($urlKey . $productUrlSuffix);
                 if (empty($this->urlKeys[$storeId][$urlPath])
                     || ($this->urlKeys[$storeId][$urlPath] == $rowData[self::COL_SKU])
                 ) {
@@ -2335,6 +2335,13 @@ class Product extends \Magento\ImportExport\Model\Import\Entity\AbstractEntity
                     $this->rowNumbers[$storeId][$urlPath] = $rowNum;
                 } else {
                     $this->addRowError(ValidatorInterface::ERROR_DUPLICATE_URL_KEY, $rowNum);
+
+                    $this->_logger->critical("Row No : ".$rowNum);
+                    $this->_logger->critical("import to Store : ".json_encode($storeId));
+                    $this->_logger->critical("importing Product(Sku) : ".($rowData[self::COL_SKU]));
+                    $this->_logger->critical("duplicated Url : ".json_encode($urlPath));
+                    $this->_logger->critical('Url Now Belongs to Product(sku) : '.json_encode($this->urlKeys[$storeId][$urlPath]));
+                    $this->_logger->critical('================================================');
                 }
             }
         }
@@ -2612,7 +2619,8 @@ class Product extends \Magento\ImportExport\Model\Import\Entity\AbstractEntity
                     ->where('cpe.sku not in (?)', array_values($urlKeys))
             );
             foreach ($urlKeyDuplicates as $entityData) {
-                $rowNum = $this->rowNumbers[$entityData['store_id']][$entityData['request_path']];
+                $requiredPath = strtolower($entityData['request_path']);
+                $rowNum = $this->rowNumbers[$entityData['store_id']][$requiredPath];
                 $this->addRowError(ValidatorInterface::ERROR_DUPLICATE_URL_KEY, $rowNum);
             }
         }
