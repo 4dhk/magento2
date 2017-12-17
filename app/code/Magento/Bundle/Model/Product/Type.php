@@ -569,7 +569,7 @@ class Type extends \Magento\Catalog\Model\Product\Type\AbstractType
             if ($selection->isSalable()) {
                 $selectionEnoughQty = $this->_stockRegistry->getStockItem($selection->getId())
                     ->getManageStock()
-                    ? $selection->getSelectionQty() <= $this->_stockState->getStockQty($selection->getId())
+                    ? ($this->_stockRegistry->getStockItem($selection->getId())->getBackorders() ? 1 : $selection->getSelectionQty() <= $this->_stockState->getStockQty($selection->getId()))
                     : $selection->isInStock();
 
                 if (!$selection->hasSelectionQty() || $selection->getSelectionCanChangeQty() || $selectionEnoughQty) {

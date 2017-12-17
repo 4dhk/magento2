@@ -43,6 +43,7 @@ cp -Rp $DIR/app/code/Magento/ImportExport/* $TargetVendorMagentoDir/module-impor
 cp -Rp $DIR/app/code/Magento/Quote/* $TargetVendorMagentoDir/module-quote
 cp -Rp $DIR/app/code/Magento/CatalogImportExport/* $TargetVendorMagentoDir/module-catalog-import-export
 cp -Rp $DIR/app/code/Magento/Security/* $TargetVendorMagentoDir/module-security
+cp -Rp $DIR/app/code/Magento/Bundle/* $TargetVendorMagentoDir/module-bundle
 
 cp -Rp $DIR/app/design/adminhtml/Magento/backend/Magento_Catalog/* $TargetVendorMagentoDir/theme-adminhtml-backend/Magento_Catalog
 
