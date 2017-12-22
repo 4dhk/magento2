@@ -49,6 +49,11 @@ class Loader
         $options = [];
         /** @var Configurable $typeInstance */
         $typeInstance = $product->getTypeInstance();
+
+        if( !method_exists($typeInstance, 'getConfigurableAttributeCollection' ) ){
+          return $options;
+        }
+
         $attributeCollection = $typeInstance->getConfigurableAttributeCollection($product);
         $this->extensionAttributesJoinProcessor->process($attributeCollection);
         foreach ($attributeCollection as $attribute) {
