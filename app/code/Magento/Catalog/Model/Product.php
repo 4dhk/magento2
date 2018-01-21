@@ -1693,9 +1693,11 @@ class Product extends \Magento\Catalog\Model\AbstractModel implements
      */
     public function getAttributeText($attributeCode)
     {
-        return $this->getResource()->getAttribute($attributeCode)->getSource()->getOptionText(
-            $this->getData($attributeCode)
-        );
+        if($this->getResource()->getAttribute($attributeCode)){
+            return $this->getResource()->getAttribute($attributeCode)->getSource()->getOptionText(
+                $this->getData($attributeCode)
+            );
+        }
     }
 
     /**
