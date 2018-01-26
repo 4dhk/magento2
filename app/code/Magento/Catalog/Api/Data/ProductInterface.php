@@ -21,6 +21,8 @@ interface ProductInterface extends \Magento\Framework\Api\CustomAttributesDataIn
 
     const PRICE = 'price';
 
+    const FINAL_PRICE = 'finalprice';
+
     const WEIGHT = 'weight';
 
     const STATUS = 'status';
@@ -111,6 +113,23 @@ interface ProductInterface extends \Magento\Framework\Api\CustomAttributesDataIn
      * @return $this
      */
     public function setPrice($price);
+
+
+    /**
+     * Sets final price of product
+     *
+     * @param float $price Price amount
+     * @return \Magento\Catalog\Model\Product
+     */
+    public function setFinalPrice($price);
+    /**
+     * Get product final price
+     *
+     * @param float $qty
+     * @return float
+     */
+    public function getFinalPrice($qty = null);
+
 
     /**
      * Product status
