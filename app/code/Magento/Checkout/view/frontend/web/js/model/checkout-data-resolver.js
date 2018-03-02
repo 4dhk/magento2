@@ -144,12 +144,12 @@ define(
                 var selectedShippingRate = checkoutData.getSelectedShippingRate(),
                     availableRate = false;
 
-                if (ratesData.length == 1) {
-                    //set shipping rate if we have only one available shipping rate
-                    selectShippingMethodAction(ratesData[0]);
-
-                    return;
-                }
+                // if (ratesData.length == 1) {
+                //     //set shipping rate if we have only one available shipping rate
+                //     selectShippingMethodAction(ratesData[0]);
+                //
+                //     return;
+                // }
 
                 if (quote.shippingMethod()) {
                     availableRate = _.find(ratesData, function (rate) {
