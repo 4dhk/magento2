@@ -55,29 +55,128 @@ class CategoryLinkManagement implements \Magento\Catalog\Api\CategoryLinkManagem
         $this->productLinkFactory = $productLinkFactory;
     }
 
+
+    private function createCustomAttributesObject($name,$value){
+        $response = new \stdClass();
+        $response->attribute_code = $name;
+        $response->value = $value;
+        return $response;
+    }
+    private function moveAttributesToCustomAttributes($keys,$data){
+        $data['custom_attributes'] = [];
+        if($keys){
+            foreach($keys as $key){
+                if(isset($data[$key])) {
+                    $data['custom_attributes'][] = $this->createCustomAttributesObject($key, $data[$key]);
+                    unset($data[$key]);
+                }
+            }
+        }
+
+        return $data;
+    }
     /**
      * {@inheritdoc}
      */
     public function getAssignedProducts($categoryId)
     {
         $category = $this->categoryRepository->get($categoryId);
-
+        if(isset($_GET['page'])){
+            $page = $_GET['page'];
+        }else{
+            $page = 1;
+        }
         /** @var \Magento\Catalog\Model\ResourceModel\Product\Collection $products */
         $products = $category->getProductCollection();
-        $products->addFieldToSelect('position');
+        $products->setPageSize(10);
+        $products->setCurPage($page);
+
+        $products->addFieldToSelect(
+            '*'
+        );
 
         /** @var \Magento\Catalog\Api\Data\CategoryProductLinkInterface[] $links */
+        $response = new \StdClass();
         $links = [];
 
         /** @var \Magento\Catalog\Model\Product $product */
-        foreach ($products->getItems() as $product) {
-            /** @var \Magento\Catalog\Api\Data\CategoryProductLinkInterface $link */
-            $link = $this->productLinkFactory->create();
-            $link->setSku($product->getSku())
-                ->setPosition($product->getData('cat_index_position'))
-                ->setCategoryId($category->getId());
-            $links[] = $link;
+        $productItems = $products->getItems();
+        if($productItems) {
+            foreach ($products->getItems() as $product) {
+                /** @var \Magento\Catalog\Api\Data\CategoryProductLinkInterface $link */
+                /*$link = $this->productLinkFactory->create();
+                $link->setSku($product->getSku())
+                    ->setPosition($product->getData('cat_index_position'))
+                    ->setCategoryId($category->getId());*/
+
+
+                $link = new \stdClass();
+                //$link = $product->getData();
+
+
+                $movekeys = [
+                    'short_description',
+                    'meta_title',
+                    'meta_keyword',
+                    'meta_description',
+                    'image',
+                    'small_image',
+                    'thumbnail',
+                    'options_container',
+                    'required_options',
+                    'has_options',
+                    'url_key',
+                    'tax_class_id',
+                    'gift_message_available',
+                    'sirent_pricingtype',
+
+                    'sirent_quantity',
+                    'sirent_rental_type',
+                    'sirent_serial_numbers_use',
+                    'sirent_disable_shipping',
+
+                    'sirent_use_times',
+                    'sirent_padding',
+                    'sirent_min',
+                    'sirent_max',
+                    'sirent_turnover_before',
+                    'sirent_turnover_after',
+                    'sirent_future_limit',
+                    'sirent_allow_overbooking',
+                    'sirent_global_exclude_dates',
+                    'sirent_allow_extend_order',
+                    'sirent_fixed_length',
+                    'sirent_enable_buyout',
+                    'sirent_buyout_price',
+                    'sirent_excludeddays_from',
+                    //'type',
+                    'sirent_hotel_mode',
+                    'search_weight'
+
+                ];
+
+                $link = $this->moveAttributesToCustomAttributes($movekeys, $product->getData());
+
+                $link['id'] = $link['entity_id'];
+                unset($link['entity_id']);
+                unset($link['description']);
+
+
+                /*$link->id = $product->getData('entity_id');
+                $link->sku = $product->getSku();
+                $link->name = $product->getName();
+
+                $link->position = $product->getData('cat_index_position');
+                $link->category_id = $category->getId();*/
+
+                $links[] = $link;
+            }
         }
+        $response->items = $links;
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($response);
+        exit;
+
         return $links;
     }
 
