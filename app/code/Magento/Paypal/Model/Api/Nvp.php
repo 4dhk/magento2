@@ -1239,6 +1239,19 @@ class Nvp extends \Magento\Paypal\Model\Api\AbstractApi
             }
             return $response;
         }
+
+
+        if(isset($response['L_ERRORCODE0']) && $response['L_ERRORCODE0'] == "10412"){
+            $logFile = fopen("/var/www/html/echo_log/sql_exec.log", "a");
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); // Instance of object manager
+            $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+            $connection = $resource->getConnection();
+            $sql = "Update quote Set `is_active` = 0 where `reserved_order_id` = ".$request['INVNUM'];
+            $connection->query($sql);
+            $ManagerInterface = $objectManager->get('Magento\Framework\Message\ManagerInterface');
+            $ManagerInterface->messageManager->addError('Place order fail and payment cancelled. Please try again.');
+            throw Exception('Place order fail and payment cancelled. Please try again.');
+        }
         $this->_handleCallErrors($response);
         return $response;
     }
