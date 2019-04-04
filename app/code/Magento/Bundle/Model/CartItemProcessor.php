@@ -84,6 +84,7 @@ class CartItemProcessor implements CartItemProcessorInterface
         $productOptions = [];
         $bundleOptions = $cartItem->getBuyRequest()->getBundleOption();
         $bundleOptionsQty = $cartItem->getBuyRequest()->getBundleOptionQty();
+        if($bundleOptions) {
         foreach ($bundleOptions as $optionId => $optionSelections) {
             if (empty($optionSelections)) {
                 continue;
@@ -97,6 +98,7 @@ class CartItemProcessor implements CartItemProcessorInterface
             $productOption->setOptionSelections($optionSelections);
             $productOption->setOptionQty($optionQty);
             $productOptions[] = $productOption;
+        }
         }
 
         $extension = $this->productOptionExtensionFactory->create()->setBundleOptions($productOptions);

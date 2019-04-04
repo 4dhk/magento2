@@ -78,9 +78,22 @@ class LinkManagement implements \Magento\ConfigurableProduct\Api\LinkManagementI
         $childrenList = [];
         /** @var \Magento\Catalog\Model\Product $child */
         foreach ($productTypeInstance->getUsedProducts($product) as $child) {
+            $attributes = [];
+            foreach ($child->getAttributes() as $attribute) {
+                $attrCode = $attribute->getAttributeCode();
+                $value = $child->getDataUsingMethod($attrCode) ?: $child->getData($attrCode);
+                if (null !== $value && $attrCode != 'entity_id') {
+                    $attributes[$attrCode] = $value;
+                }
+            }
+            $attributes['store_id'] = $child->getStoreId();
             /** @var \Magento\Catalog\Api\Data\ProductInterface $productDataObject */
             $productDataObject = $this->productFactory->create();
-            $productDataObject->load($child->getId());
+            $this->dataObjectHelper->populateWithArray(
+                $productDataObject,
+                $attributes,
+                '\Magento\Catalog\Api\Data\ProductInterface'
+            );
             $childrenList[] = $productDataObject;
         }
         return $childrenList;
